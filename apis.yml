@@ -1,7 +1,11 @@
 aid: clorox
-url: https://raw.githubusercontent.com/api-evangelist/clorox/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/clorox/refs/heads/main/apis.yml
 modified: '2026-03-23'
 apis: []
 common:
   - type: Website
     url: https://www.clorox.com
+description: >-
+  Explore a wide range of Clorox cleaning and disinfecting products, from wipes to
+  sprays, to keep your home fresh and healthy.
