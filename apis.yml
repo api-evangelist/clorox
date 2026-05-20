@@ -28,6 +28,8 @@ description: >-
   the API Evangelist network.
 apis: []
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/the-clorox-company
   - type: Website
     url: https://www.clorox.com
   - type: CorporateSite
