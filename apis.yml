@@ -29,6 +29,8 @@ description: >-
   the API Evangelist network.
 apis: []
 common:
+  - type: DomainSecurity
+    url: security/clorox-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/the-clorox-company
   - type: Website
@@ -47,6 +49,8 @@ common:
     url: https://www.thecloroxcompany.com/terms-of-use/
   - type: PrivacyPolicy
     url: https://www.thecloroxcompany.com/privacy-policy/
+  - url: https://www.thecloroxcompany.com/feed/
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
