@@ -1,6 +1,17 @@
 aid: clorox
 name: The Clorox Company
 url: https://raw.githubusercontent.com/api-evangelist/clorox/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
 created: '2026-03-23'
 modified: '2026-04-27'
 specificationVersion: '0.19'
@@ -8,7 +19,7 @@ type: Index
 access: 1st-Party
 position: Producer
 kind: company
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/clorox.png
 tags:
   - Cleaning Products
   - Consumer Goods
