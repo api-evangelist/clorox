@@ -14,7 +14,7 @@ accessModel:
   method: derived
 created: '2026-03-23'
 modified: '2026-04-27'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 type: Index
 access: 1st-Party
 position: Producer
