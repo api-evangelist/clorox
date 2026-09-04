@@ -28,7 +28,7 @@ modified: '2026-04-27'
 specificationVersion: '0.23'
 type: Index
 access: 1st-Party
-position: Producer
+position: Producing
 kind: company
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/clorox.png
 tags:
