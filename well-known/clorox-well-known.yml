@@ -1,0 +1,83 @@
+generated: '2026-09-05'
+method: probed
+source: live HTTPS probe of the named /.well-known/ path list on every host this record knows
+note: >-
+  Every named path 404s on every Clorox host. NO WellKnown and NO SecurityTxt pointer is
+  emitted from this file — it records an absence, not a presence. Two of the three hosts
+  (www.clorox.com and clorox.com, a Next.js app) are SOFT-200 CATCH-ALLS: they answer 200
+  with the 225KB marketing HTML shell for /openapi.json, /swagger.json, /api-docs, /llms.txt
+  and /apis.json while returning a real 404 for every /.well-known/ path. Those 200s are the
+  HTML shell, not documents; they are recorded with soft_404: true and count as misses.
+  The negative-control path returns 404 on all three hosts, so no host echoes paths.
+hit_count: 0
+path_echo_control: passed
+hosts:
+  - host: https://www.clorox.com
+    soft_404_catch_all: true
+    soft_404_control:
+      path: /.well-known/clorox-negative-control-7f3ab91c.json
+      status: 404
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /apis.json, status: 200, soft_404: true, note: 225KB marketing HTML shell, not an APIs.json index}
+      - {path: /openapi.json, status: 200, soft_404: true, note: 225KB marketing HTML shell, not a spec}
+      - {path: /llms.txt, status: 200, soft_404: true, note: 225KB marketing HTML shell, not an llms.txt}
+  - host: https://clorox.com
+    soft_404_catch_all: true
+    soft_404_control:
+      path: /.well-known/clorox-negative-control-7f3ab91c.json
+      status: 404
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /apis.json, status: 200, soft_404: true, note: same Next.js catch-all shell as www}
+  - host: https://www.thecloroxcompany.com
+    soft_404_catch_all: false
+    soft_404_control:
+      path: /.well-known/clorox-negative-control-7f3ab91c.json
+      status: 404
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /apis.json, status: 404}
+      - {path: /llms.txt, status: 404}
+  - host: https://api.clorox.com
+    note: >-
+      MuleSoft Anypoint Platform gateway (DNS CNAME clx-us-east-prd-ext.lb.anypointdns.net,
+      dedicated DigiCert cert CN=api.clorox.com). Root returns 403 Forbidden; every probed
+      path returns a 520-byte nginx 404. No anonymous discovery document is served.
+    soft_404_catch_all: false
+    soft_404_control:
+      path: /.well-known/clorox-negative-control-7f3ab91c.json
+      status: 404
+    documents:
+      - {path: /, status: 403}
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /openapi.json, status: 404}
+      - {path: /swagger.json, status: 404}
+      - {path: /api-docs, status: 404}

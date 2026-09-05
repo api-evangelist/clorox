@@ -1,0 +1,84 @@
+generated: '2026-09-05'
+method: derived
+source: contracts/clorox-wp-json-root.json + live probes of /wp-json/tcc/v1 and /wp-json/clorox-security/v1
+note: >-
+  Clorox publishes no developer documentation, so every convention below is DERIVED from the
+  fetched route descriptors and from responses actually observed on the wire. Nothing here is
+  taken from a docs page, because there is no docs page.
+base_url: https://www.thecloroxcompany.com/wp-json
+authentication:
+  style: none-for-read
+  detail: >-
+    Every first-party read route answered anonymously with no key, cookie or token. The
+    discovery document advertises exactly one authentication mechanism, WordPress application
+    passwords, whose authorization endpoint is /wp-admin/authorize-application.php — an
+    editorial credential for the CMS, not an API-consumer credential. There is no key
+    issuance, no OAuth, and no self-service signup for this surface.
+  see: authentication/clorox-authentication.yml
+versioning:
+  style: uri-path-namespace
+  detail: "Namespace and version are one path segment pair: /wp-json/<namespace>/<version>, e.g. /tcc/v1."
+  current: v1
+  policy_published: false
+pagination:
+  style: wordpress-core
+  detail: >-
+    wp/v2 collection routes accept page and per_page and return X-WP-Total and X-WP-TotalPages
+    response headers. The first-party tcc/v1 collections (cleaning_labels, job-search/job-query,
+    sds-xml) declare NO pagination arguments in their descriptors and returned the full result
+    set in one unpaged body, so they are unpaginated as published.
+  params: [page, per_page]
+  response_headers: [X-WP-Total, X-WP-TotalPages]
+  first_party_routes_paginated: false
+filtering:
+  detail: "cleaning_labels accepts country (default 'United States'), brands and search. general_conformity requires upc and lot. job-search/job-detail requires job_unique_identifier."
+error_envelope:
+  style: wordpress-rest
+  shape: '{code, message, data: {status, params}}'
+  observed: "GET /tcc/v1/general_conformity with no parameters returned 400 {code: rest_missing_callback_param, message: 'Missing parameter(s): upc, lot', data: {status: 400, params: [upc, lot]}}"
+  rfc9457: false
+  note: >-
+    A second, INCONSISTENT envelope exists on the hand-written first-party routes: both
+    /tcc/v1/dsar/countryRegions and /clorox-security/v1/is-do-not-share return HTTP 200 with a
+    body of {status: 100, message: <error text>, data: []}. These are errors carried inside a
+    200, with a non-HTTP status code, so an agent cannot detect failure from the status line
+    on those routes. See errors/clorox-problem-types.yml.
+  see: errors/clorox-problem-types.yml
+request_tracing:
+  request_id_header: null
+  detail: "No request-id or correlation header was returned on any observed response."
+rate_limit_signaling:
+  headers: []
+  detail: "No X-RateLimit-*, RateLimit-* or Retry-After header was present on any observed response."
+  see: rate-limits/clorox-rate-limits.yml
+idempotency:
+  coverage: none
+  header: null
+  scope: []
+  detail: >-
+    No idempotency key, replay-protection header or deduplication parameter appears in any
+    route descriptor or in any observed response. The surface has exactly three declared write
+    operations (POST /tcc/v1/survey/submit, POST /clorox-security/v1/log, POST
+    /clorox-security/v1/saw-terms-notice) and none of them accepts an idempotency key. A
+    retried survey submission or consent log write is a second write.
+reversibility:
+  grade: none
+  detail: >-
+    The three declared write operations are append-only telemetry and form submissions
+    (survey submit, security log, terms-notice acknowledgement). No cancel, delete, void,
+    undo, restore or reverse operation exists anywhere in the first-party namespaces, and
+    Clorox publishes no documentation stating a correction window. This is NOT `na` — write
+    operations do exist — it is an unreversed write surface.
+  write_surfaces:
+    - operation: POST /tcc/v1/survey/submit
+      reversal: null
+      window: null
+    - operation: POST /clorox-security/v1/log
+      reversal: null
+      window: null
+    - operation: POST /clorox-security/v1/saw-terms-notice
+      reversal: null
+      window: null
+dry_run_mode:
+  supported: false
+  detail: "No dry-run, preview, validate-only or test-mode parameter is declared on any route."

@@ -24,7 +24,7 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 created: '2026-03-23'
-modified: '2026-04-27'
+modified: '2026-09-05'
 specificationVersion: '0.23'
 type: Index
 access: 1st-Party
@@ -32,47 +32,134 @@ position: Producing
 kind: company
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/clorox.png
 tags:
-  - Cleaning Products
+- Cleaning Products
+- Consumer Goods
+- CPG
+- Disinfectants
+- Household Products
+- Manufacturer
+- Fortune 500
+- Safety Data Sheets
+- Product Transparency
+- MuleSoft
+description: The Clorox Company is a multinational consumer-goods manufacturer best known for its bleach,
+  cleaning and disinfecting brands, alongside a portfolio that includes Pine-Sol, Liquid-Plumr, Glad,
+  Kingsford, Brita, Burt's Bees and Hidden Valley. Clorox runs no developer program and publishes no API
+  documentation, OpenAPI, SDK or portal, and its commercial integration with retailers and suppliers runs
+  over EDI and partner agreements rather than a public API. It does nonetheless serve a small, undocumented,
+  anonymous first-party REST surface from its corporate site at /wp-json — Clorox-authored tcc/v1 and
+  clorox-security/v1 namespaces exposing a Safety Data Sheet index, cleaning-product ingredient disclosure
+  records, a CPSC general conformity certificate lookup, a live job feed and consent signalling. A MuleSoft
+  Anypoint gateway at api.clorox.com serves partner traffic behind a 403, and Clorox's Anypoint Exchange
+  public portal is enabled but publishes zero assets.
+apis:
+- name: The Clorox Company Product Disclosure & Content API
+  description: 'Undocumented first-party REST surface served from The Clorox Company''s corporate WordPress
+    site. Two Clorox-authored namespaces sit alongside WordPress core: tcc/v1 exposes a Safety Data Sheet
+    index as XML, a country- and brand-filterable index of cleaning-product ingredient disclosure documents,
+    a CPSC general conformity certificate lookup keyed on UPC and lot, a live job requisition feed, and
+    a DSAR country/region lookup; clorox-security/v1 carries do-not-sell-or-share consent signalling.
+    Every read route answers anonymously with no credential. Clorox publishes no documentation, no OpenAPI,
+    no SDK and no support commitment for any of it — this profile is the result of probing the provider''s
+    own hosts, not of reading a developer portal.'
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/clorox.png
+  humanURL: https://www.thecloroxcompany.com/wp-json/tcc/v1
+  baseURL: https://www.thecloroxcompany.com/wp-json
+  tags:
+  - Product Disclosure
+  - Safety Data Sheets
+  - Ingredient Transparency
+  - Regulatory Compliance
   - Consumer Goods
-  - CPG
-  - Disinfectants
-  - Household Products
-  - Manufacturer
-  - Fortune 500
-description: >-
-  The Clorox Company is a multinational consumer-goods manufacturer best
-  known for its bleach, cleaning, and disinfecting brands as well as a
-  broader portfolio that includes Pine-Sol, Liquid-Plumr, Glad, Kingsford,
-  Brita, Burts Bees, and Hidden Valley. Clorox does not publish a public
-  developer-facing REST API; integration with the company is handled
-  through partner, supply-chain, and retail-EDI relationships rather than
-  through a documented internet-accessible API. This profile records the
-  company's web presence, careers/IR resources, and brand directory for
-  the API Evangelist network.
-apis: []
+  - Job Search
+  - Content API
+  - Undocumented API
+  tags_raw:
+  - product-disclosure
+  - safety-data-sheets
+  - ingredient-transparency
+  - regulatory-compliance
+  - consumer-goods
+  - job-search
+  - content-api
+  - undocumented-api
+  properties:
+  - type: Specification
+    url: contracts/clorox-wp-json-root.json
+  - type: Specification
+    url: contracts/clorox-tcc-v1-routes.json
+  - type: Specification
+    url: contracts/clorox-security-v1-routes.json
+  - type: Authentication
+    url: authentication/clorox-authentication.yml
+  - type: Conventions
+    url: conventions/clorox-conventions.yml
+  - type: ErrorCatalog
+    url: errors/clorox-problem-types.yml
+  - type: DataModel
+    url: data-model/clorox-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/clorox-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/clorox-rate-limits.yml
+  - type: Conformance
+    url: conformance/clorox-conformance.yml
+  - type: AgentSkill
+    url: skills/_index.yml
 common:
-  - type: DomainSecurity
-    url: security/clorox-domain-security.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/the-clorox-company
-  - type: Website
-    url: https://www.clorox.com
-  - type: CorporateSite
-    url: https://www.thecloroxcompany.com/
-  - type: Brands
-    url: https://www.thecloroxcompany.com/brands/
-  - type: InvestorRelations
-    url: https://investors.thecloroxcompany.com/
-  - type: Careers
-    url: https://www.thecloroxcompany.com/careers/
-  - type: Newsroom
-    url: https://www.thecloroxcompany.com/newsroom/
-  - type: TermsOfService
-    url: https://www.thecloroxcompany.com/terms-of-use/
-  - type: PrivacyPolicy
-    url: https://www.thecloroxcompany.com/privacy-policy/
-  - url: https://www.thecloroxcompany.com/feed/
-    type: Blog
+- type: DomainSecurity
+  url: security/clorox-domain-security.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/the-clorox-company
+- type: Website
+  url: https://www.clorox.com
+- type: CorporateSite
+  url: https://www.thecloroxcompany.com/
+- type: Brands
+  url: https://www.thecloroxcompany.com/brands/
+- type: InvestorRelations
+  url: https://investors.thecloroxcompany.com/
+- type: Careers
+  url: https://www.thecloroxcompany.com/careers/
+- type: Newsroom
+  url: https://www.thecloroxcompany.com/newsroom/
+- type: TermsOfService
+  url: https://www.thecloroxcompany.com/terms/
+- type: PrivacyPolicy
+  url: https://www.thecloroxcompany.com/privacy/
+- url: https://www.thecloroxcompany.com/feed/
+  type: Blog
+- type: Support
+  url: https://www.thecloroxcompany.com/contact-us/
+- type: Partners
+  url: https://www.thecloroxcompany.com/suppliers/
+- type: Conventions
+  url: conventions/clorox-conventions.yml
+- type: Conformance
+  url: conformance/clorox-conformance.yml
+- type: Authentication
+  url: authentication/clorox-authentication.yml
+- type: ErrorCatalog
+  url: errors/clorox-problem-types.yml
+- type: DataModel
+  url: data-model/clorox-data-model.yml
+- type: Lifecycle
+  url: lifecycle/clorox-lifecycle.yml
+- type: RateLimits
+  url: rate-limits/clorox-rate-limits.yml
+- type: Plans
+  url: plans/clorox-plans-pricing.yml
+- type: Packages
+  url: packages/clorox-packages.yml
+- type: LLMsTxt
+  url: llms/clorox-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v3

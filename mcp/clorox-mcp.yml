@@ -1,0 +1,45 @@
+generated: '2026-09-05'
+method: derived
+status: candidate
+source: contracts/clorox-tcc-v1-routes.json
+note: >-
+  Clorox ships NO MCP server. No hosted endpoint, no stdio package, nothing in any registry or
+  in any Clorox GitHub org. The tools below are a DERIVED CANDIDATE set showing what an MCP
+  server over the already-public, already-anonymous first-party routes would expose. They are a
+  proposal, not a provider surface. No endpoint URL is invented.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+server:
+  name: clorox
+  transport: null
+  url: null
+tools:
+  - name: list_safety_data_sheets
+    description: List Clorox Safety Data Sheets with their document URLs.
+    source_operation: "GET https://www.thecloroxcompany.com/wp-json/tcc/v1/sds-xml"
+    inputSchema_source: "no parameters declared in the route descriptor"
+  - name: search_cleaning_labels
+    description: Search cleaning-product ingredient disclosure records by brand, country or free text.
+    source_operation: "GET https://www.thecloroxcompany.com/wp-json/tcc/v1/cleaning_labels"
+    inputSchema_source: "country (default 'United States'), brands, search — all optional, from the route descriptor"
+  - name: get_general_conformity_certificate
+    description: Look up a CPSC General Certificate of Conformity by UPC and lot code.
+    source_operation: "GET https://www.thecloroxcompany.com/wp-json/tcc/v1/general_conformity"
+    inputSchema_source: "upc (required), lot (required), from the route descriptor"
+  - name: search_jobs
+    description: List open Clorox job requisitions.
+    source_operation: "GET https://www.thecloroxcompany.com/wp-json/tcc/v1/job-search/job-query"
+    inputSchema_source: "no parameters declared in the route descriptor"
+  - name: get_job_detail
+    description: Get full detail for one job requisition.
+    source_operation: "GET https://www.thecloroxcompany.com/wp-json/tcc/v1/job-search/job-detail"
+    inputSchema_source: "job_unique_identifier (required), from the route descriptor"
+excluded_from_candidate:
+  - {operation: "POST /tcc/v1/survey/submit", reason: "write with no idempotency and no reversal"}
+  - {operation: "POST /clorox-security/v1/log", reason: "write with no idempotency and no reversal"}
+  - {operation: "GET /clorox-security/v1/is-do-not-share", reason: "consent-signal plumbing for the website, not a useful agent tool"}

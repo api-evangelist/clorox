@@ -1,0 +1,13 @@
+generated: '2026-09-05'
+method: probed
+source: live responses from https://www.thecloroxcompany.com/wp-json/
+limit_count: 0
+note: >-
+  Clorox publishes no rate limits and returns no rate-limit headers. No X-RateLimit-*,
+  RateLimit-*, or Retry-After header appeared on any of the responses observed on 2026-09-05,
+  and there is no documentation to read a published limit from. An honest zero: the surface is
+  anonymous and unmetered as far as an outside consumer can tell, which also means an agent has
+  no runtime signal telling it when to back off.
+limits: []
+response_headers: []
+exhaustion_status: null

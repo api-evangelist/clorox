@@ -1,0 +1,35 @@
+generated: '2026-09-05'
+method: derived
+source: contracts/clorox-wp-json-root.json (authentication block) + anonymous live calls
+summary:
+  types: [none, application-password]
+  api_key_in: []
+  oauth2_flows: []
+  public_read: true
+  self_service_credentials: false
+schemes:
+  - name: anonymous
+    type: none
+    applies_to: "every first-party read route in tcc/v1 and clorox-security/v1"
+    evidence: >-
+      GET /tcc/v1/sds-xml (200, 113549 bytes), /tcc/v1/cleaning_labels (200, 13410 bytes) and
+      /tcc/v1/job-search/job-query (200, 41159 bytes) all returned real data with no
+      credential of any kind on 2026-09-05.
+  - name: wordpress-application-passwords
+    type: http
+    scheme: basic
+    authorization_endpoint: https://www.thecloroxcompany.com/wp-admin/authorize-application.php
+    source: contracts/clorox-wp-json-root.json
+    audience: cms-editors
+    note: >-
+      This is the only mechanism the discovery document advertises. It authenticates WordPress
+      users for editorial writes; it is not an API-consumer credential and there is no public
+      route to obtain one.
+gated_surfaces:
+  - host: api.clorox.com
+    mechanism: unknown
+    evidence: "HTTP 403 at the gateway root; no /.well-known/oauth-authorization-server, no /.well-known/openid-configuration (both 404)."
+    note: >-
+      MuleSoft Anypoint gateway. Clorox has an ENABLED Anypoint Exchange public portal at
+      https://anypoint.mulesoft.com/exchange/portals/clorox/ but it publishes zero assets, so
+      the gateway's auth model is not discoverable anonymously.

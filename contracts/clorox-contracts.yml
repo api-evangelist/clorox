@@ -1,0 +1,116 @@
+generated: '2026-09-05'
+method: probed
+source: https://www.thecloroxcompany.com/wp-json/
+note: >-
+  Index of the machine-readable contract documents actually fetched from Clorox-controlled
+  hosts. These are SELF-DESCRIBING route descriptors served by the provider (the WordPress
+  REST API discovery document and its per-namespace descriptors), saved VERBATIM. They are
+  not OpenAPI and no OpenAPI has been authored from them — the pipeline does not manufacture
+  a spec a provider does not publish. Each descriptor carries methods, argument names,
+  required flags and defaults, which is the full parameter contract for these routes.
+ownership:
+  verdict: confirmed
+  evidence: >-
+    Fetched from www.thecloroxcompany.com, the company's own corporate domain. The discovery
+    document self-identifies as name "The Clorox Company", url https://www.thecloroxcompany.com,
+    description "We make everyday life better, every day." Two of the twelve namespaces are
+    first-party and Clorox-named — tcc/v1 (The Clorox Company) and clorox-security/v1 — and
+    expose Clorox product and regulatory data, not vendor-generic content.
+documents:
+  - file: clorox-wp-json-root.json
+    url: https://www.thecloroxcompany.com/wp-json/
+    status: 200
+    content_type: application/json
+    kind: wp-rest-discovery
+    routes: 280
+    namespaces: 12
+    fetched: '2026-09-05'
+  - file: clorox-tcc-v1-routes.json
+    url: https://www.thecloroxcompany.com/wp-json/tcc/v1
+    status: 200
+    content_type: application/json
+    kind: wp-rest-namespace-descriptor
+    routes: 8
+    first_party: true
+    fetched: '2026-09-05'
+  - file: clorox-security-v1-routes.json
+    url: https://www.thecloroxcompany.com/wp-json/clorox-security/v1
+    status: 200
+    content_type: application/json
+    kind: wp-rest-namespace-descriptor
+    routes: 4
+    first_party: true
+    fetched: '2026-09-05'
+verified_operations:
+  - method: GET
+    path: /tcc/v1/sds-xml
+    status: 200
+    content_type: application/xml
+    bytes: 113549
+    params: []
+    note: "Safety Data Sheet catalogue as XML"
+  - method: GET
+    path: /tcc/v1/cleaning_labels
+    status: 200
+    content_type: application/json
+    bytes: 13410
+    params: [country, brands, search]
+    note: "cleaning-product ingredient disclosure records"
+  - method: GET
+    path: /tcc/v1/general_conformity
+    status: 400
+    content_type: application/json
+    params: [upc, lot]
+    required: [upc, lot]
+    note: "400 rest_missing_callback_param confirms the required parameter contract"
+  - method: GET
+    path: /tcc/v1/job-search/job-query
+    status: 200
+    content_type: application/json
+    bytes: 41159
+    params: []
+    note: "live requisition feed"
+  - method: GET
+    path: /tcc/v1/job-search/job-detail
+    status: null
+    params: [job_unique_identifier]
+    required: [job_unique_identifier]
+    note: "declared in the descriptor, not called"
+  - method: GET
+    path: /tcc/v1/dsar/countryRegions
+    status: 200
+    content_type: application/json
+    params: [countryCode]
+    note: "returns status 100 / message Missing countryCode without the parameter"
+  - method: POST
+    path: /tcc/v1/survey/submit
+    status: null
+    params: []
+    note: "write operation, not exercised"
+  - method: GET
+    path: /clorox-security/v1/is-do-not-share
+    status: 200
+    content_type: application/json
+    params: []
+  - method: GET
+    path: /clorox-security/v1/saw-terms-notice
+    status: null
+    params: []
+  - method: POST
+    path: /clorox-security/v1/log
+    status: null
+    params: []
+    note: "write operation, not exercised"
+not_found:
+  - surface: OpenAPI
+    note: "no OpenAPI/Swagger document served on any Clorox host"
+  - surface: GraphQL
+    note: "no /graphql surface found"
+  - surface: AsyncAPI
+    note: "no event/streaming/webhook surface published"
+  - surface: WSDL
+    note: "no ?wsdl or ?singleWsdl responded on any host"
+  - surface: gRPC
+    note: "no published .proto in any Clorox GitHub org or on buf.build"
+  - surface: OGC
+    note: "not a geospatial provider; no evidence pointed at an OGC surface, so no blind probing was done"

@@ -1,0 +1,48 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  registry.npmjs.org search + package metadata, pypi.org/pypi/<name>/json,
+  rubygems.org/api/v1/search.json, crates.io/api/v1/crates, api.github.com org lookups
+note: >-
+  Clorox publishes NO client library for any of its APIs, in any language. The one package
+  below that is genuinely Clorox-affiliated is a website build component, not an API SDK, so no
+  SDKs pointer is emitted from this file — emitting one would credit Clorox with a developer
+  SDK it does not ship.
+sdk_count: 0
+packages:
+  - language: javascript
+    registry: npm
+    name: clorox-search
+    url: https://www.npmjs.com/package/clorox-search
+    install: npm install clorox-search
+    version: 1.0.18
+    published: '2024-05-17'
+    official: true
+    is_api_client: false
+    repository: https://github.com/electro-creative-workshop/clorox-search
+    license: ISC
+    note: >-
+      First-party by affiliation: published from the GitHub org electro-creative-workshop, whose
+      own org description reads "Internal agency for the Clorox Company" — the same "Electro"
+      named in www.thecloroxcompany.com/robots.txt. Its stated purpose is "Integrates algolia
+      search into clorox.com site", i.e. a build-time site component wrapping a THIRD-PARTY
+      service (Algolia). It is not a client for any Clorox API. Last published 2024-05-17,
+      roughly sixteen months before this pass.
+rejected:
+  - registry: pypi
+    name: clorox
+    version: 0.6.1
+    published: '2017-08-03'
+    reason: >-
+      NOT Clorox. Author Gustavo Barbosa; summary "Removes Xcode's file comment blocks cruft";
+      homepage github.com/barbosa/clorox. Name collision only.
+  - registry: rubygems
+    name: danger-clorox
+    version: 2.0.2
+    reason: "NOT Clorox. A Danger plugin by the same unrelated author (github.com/barbosa/danger-clorox)."
+registries_searched:
+  - {registry: npm, result: "6 name matches, 1 Clorox-affiliated (clorox-search), 0 API clients"}
+  - {registry: pypi, result: "1 name match, unrelated"}
+  - {registry: rubygems, result: "1 name match, unrelated"}
+  - {registry: crates.io, result: "0 matches"}
+  - {registry: github, result: "no `clorox` org (404); 30 user/org name matches, all Clorox-named orgs return no readable public repo metadata anonymously"}

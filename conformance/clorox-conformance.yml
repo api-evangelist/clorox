@@ -1,0 +1,93 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  Live probes of https://www.thecloroxcompany.com/wp-json/ first-party routes, plus the
+  provider's own /brands/what-were-made-of/smart-label/ page.
+note: >-
+  REWARD-ONLY. Clorox is a consumer-packaged-goods manufacturer, not a software vendor, so the
+  cross-cutting API standards below are mostly absent and that is not a penalty. The
+  interesting half is the DOMAIN column: a CPG chemical manufacturer's regulated
+  product-disclosure obligations are the standards that matter in its market, and Clorox has
+  put three of them behind machine-readable endpoints without ever documenting them.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: "No oauth2 security scheme; no /.well-known/oauth-authorization-server (404 on every host)."
+  - id: oidc
+    conforms: false
+    evidence: "/.well-known/openid-configuration returned 404 on every host probed."
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: "Errors use the WordPress {code,message,data} envelope, and hand-written routes return errors inside HTTP 200. No application/problem+json anywhere."
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: "/.well-known/security.txt returned 404 on www.clorox.com, clorox.com, www.thecloroxcompany.com and api.clorox.com."
+  - id: rfc8615-well-known
+    conforms: false
+    evidence: "No document served at any named /.well-known/ path on any host."
+  - id: apis-json
+    conforms: false
+    evidence: "/apis.json and /.well-known/apis.json 404 on the corporate host; the clorox.com Next.js app answers 200 with a marketing HTML shell, which is not an index."
+  - id: pagination
+    conforms: false
+    evidence: "First-party tcc/v1 collections declare no page/per_page arguments and return unpaged bodies."
+  - id: idempotency
+    conforms: false
+    evidence: "No idempotency key on any of the three declared write operations. See conventions/clorox-conventions.yml."
+domain_standards:
+  - id: ghs-osha-safety-data-sheets
+    conforms: partial
+    market: chemical and consumer-goods manufacturing
+    evidence: >-
+      GET /wp-json/tcc/v1/sds-xml returns 200 application/xml, 113549 bytes, whose root element
+      is <safety-data-sheets> containing <sds><name>...</name><url>...</url></sds> records — a
+      machine-readable index of Clorox Safety Data Sheets, the disclosure artifact required by
+      the OSHA Hazard Communication Standard (29 CFR 1910.1200) and GHS.
+    qualifier: >-
+      PARTIAL, deliberately. This is an INDEX of SDS PDFs, not GHS-structured section data. The
+      XML is a Clorox-local shape and conforms to no published SDS data schema; the regulated
+      content lives in the linked PDFs. Recorded as partial rather than true so nobody reads
+      this as a structured-SDS API.
+  - id: cpsc-general-certificate-of-conformity
+    conforms: true
+    market: US consumer product safety
+    evidence: >-
+      GET /wp-json/tcc/v1/general_conformity requires upc and lot — the exact lookup keys of a
+      CPSC General Certificate of Conformity (16 CFR 1110). Confirmed by the 400
+      rest_missing_callback_param response naming both parameters as required.
+  - id: cleaning-product-ingredient-disclosure
+    conforms: true
+    market: US/CA household cleaning products
+    evidence: >-
+      GET /wp-json/tcc/v1/cleaning_labels returns 200 with records carrying brands, country
+      (default "United States"), languages and pdf_list — a country-scoped, brand-filterable
+      machine-readable index of cleaning-product ingredient disclosure documents.
+    qualifier: >-
+      The endpoint implements ingredient right-to-know disclosure in substance. Clorox does not
+      name a statute on the endpoint or on the page, so no specific act is asserted here.
+  - id: gs1-smartlabel
+    conforms: true
+    market: consumer packaged goods product transparency
+    evidence: >-
+      https://www.thecloroxcompany.com/brands/what-were-made-of/smart-label/ returned 200 and
+      names SmartLabel 22 times as a Clorox product-transparency program.
+    qualifier: >-
+      This is a PAGE-LEVEL program claim, not a contract declaration — no SmartLabel identifier
+      or GS1 scheme appears in any route descriptor. Recorded with that distinction explicit.
+  - id: consumer-privacy-do-not-sell-or-share
+    conforms: partial
+    market: US state privacy (CCPA/CPRA-style opt-out)
+    evidence: >-
+      GET /wp-json/clorox-security/v1/is-do-not-share and GET /wp-json/tcc/v1/dsar/countryRegions
+      are live first-party routes implementing a do-not-sell-or-share signal and a data-subject
+      access-request country/region lookup.
+    qualifier: >-
+      PARTIAL: both routes answered 200 but returned failure bodies (status 100 "fetch failed"
+      and status 100 "Missing countryCode") during this pass, so the machinery is present and
+      reachable but was not observed returning a successful result.
+compliance_program:
+  published: false
+  evidence: >-
+    probe-security-programs.py returned trust=none. No trust centre, no /security page
+    (404), no responsible-disclosure page (404), and no named certification (SOC 2, ISO 27001,
+    PCI DSS, HIPAA, FedRAMP) is published on any Clorox host. No Compliance pointer is emitted.

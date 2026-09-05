@@ -1,0 +1,24 @@
+generated: '2026-09-05'
+method: derived
+source: contracts/clorox-tcc-v1-routes.json + live probes
+versioning:
+  scheme: uri-path-namespace
+  current: v1
+  docs: null
+  note: "Version is carried as a path segment (/wp-json/tcc/v1). No versioning policy is published."
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: "No Deprecation or Sunset response header was observed; no deprecation policy is published."
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_probe:
+  - {url: 'https://status.clorox.com/', result: NXDOMAIN}
+  - {url: 'https://status.thecloroxcompany.com/', result: NXDOMAIN}
+changelog: null
+note: >-
+  No StatusPage and no Deprecation pointer is emitted from this file — neither surface exists.
+  Recording their absence is the finding.

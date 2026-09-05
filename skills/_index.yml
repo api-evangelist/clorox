@@ -1,0 +1,15 @@
+generated: '2026-09-05'
+method: generated
+source: >-
+  Grounded in contracts/clorox-tcc-v1-routes.json (the provider's own route descriptor, fetched
+  verbatim) and in responses observed live on 2026-09-05. Clorox publishes no OpenAPI and no
+  AGENTS.md, so paths and parameters — not operationIds — are the grounding, and every one of
+  them was verified on the wire before being written into a step.
+skills:
+  - file: clorox-product-disclosure-lookup.md
+    name: Look up Clorox product safety and ingredient disclosures
+    api: contracts/clorox-tcc-v1-routes.json
+    operations:
+      - GET /tcc/v1/sds-xml
+      - GET /tcc/v1/cleaning_labels
+      - GET /tcc/v1/general_conformity

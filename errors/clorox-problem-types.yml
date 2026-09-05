@@ -1,0 +1,57 @@
+generated: '2026-09-05'
+method: derived
+source: live responses observed against https://www.thecloroxcompany.com/wp-json/
+format: wordpress-rest
+rfc9457: false
+note: >-
+  Clorox publishes no error reference. Every entry below was OBSERVED on the wire during this
+  pass; none is copied from documentation and none is inferred. Two distinct and mutually
+  inconsistent envelopes are in use on the same API.
+envelopes:
+  - id: wordpress-rest-error
+    shape: '{code: string, message: string, data: {status: int, params: [string]}}'
+    transport: "HTTP status carries the error"
+    used_by: "WordPress core routing and argument validation"
+  - id: tcc-status-100
+    shape: '{status: int, message: string, data: []}'
+    transport: "HTTP 200 — the error is in the body only"
+    used_by: "hand-written first-party routes (tcc/v1/dsar, clorox-security/v1)"
+    hazard: >-
+      An agent that branches on the HTTP status line will read these failures as successes.
+      The numeric 100 in the body is not an HTTP status code and is not documented anywhere.
+problems:
+  - code: rest_missing_callback_param
+    status: 400
+    envelope: wordpress-rest-error
+    title: Missing required parameter
+    message_observed: "Missing parameter(s): upc, lot"
+    data_params: [upc, lot]
+    remediation: "Supply every parameter named in data.params and retry."
+    source_operation: "GET /tcc/v1/general_conformity"
+    observed: '2026-09-05'
+  - code: null
+    status: 200
+    envelope: tcc-status-100
+    body_status: 100
+    title: Missing countryCode
+    message_observed: "Missing countryCode"
+    remediation: "Supply the countryCode query parameter. Detect this failure by reading body.status, not the HTTP status."
+    source_operation: "GET /tcc/v1/dsar/countryRegions"
+    observed: '2026-09-05'
+  - code: null
+    status: 200
+    envelope: tcc-status-100
+    body_status: 100
+    title: Upstream fetch failed
+    message_observed: "fetch failed"
+    remediation: "Transient upstream failure behind the route; retry. Detect by reading body.status, not the HTTP status."
+    source_operation: "GET /clorox-security/v1/is-do-not-share"
+    observed: '2026-09-05'
+  - code: null
+    status: 403
+    envelope: null
+    title: Forbidden
+    message_observed: "403 Forbidden (nginx, 520 bytes)"
+    remediation: "The api.clorox.com MuleSoft gateway rejects unrouted and unauthenticated requests at the root. Partner credentials and a routed path are required; neither is publicly issued."
+    source_operation: "GET https://api.clorox.com/"
+    observed: '2026-09-05'

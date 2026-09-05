@@ -1,0 +1,63 @@
+generated: '2026-09-05'
+method: derived
+source: observed response payloads from https://www.thecloroxcompany.com/wp-json/tcc/v1/*
+note: >-
+  Derived from response bodies actually fetched on 2026-09-05, not from documentation (none
+  exists) and not from a spec (none is published). Field lists are what the API returned, not
+  what it might return. The entities are flat and largely unrelated to one another — this is a
+  disclosure-document index, not a relational product API.
+entities:
+  - name: CleaningLabel
+    source_operation: "GET /tcc/v1/cleaning_labels"
+    description: A cleaning-product ingredient-disclosure record pointing at one or more disclosure PDFs.
+    fields: [id, date, date_gmt, guid, link, modified, modified_gmt, slug, status, template, type, title, brands, country, languages, pdf_list, class_list]
+    identifier: id
+    filters: [country, brands, search]
+    relationships:
+      - {type: has_many, target: DisclosureDocument, via: pdf_list}
+      - {type: belongs_to, target: Brand, via: brands}
+  - name: SafetyDataSheet
+    source_operation: "GET /tcc/v1/sds-xml"
+    description: A Safety Data Sheet index record. XML, not JSON.
+    fields: [name, url]
+    identifier: name
+    note: >-
+      The <name> carries an embedded product/document code in parentheses (e.g. CAN002236,
+      USA002238) which encodes country. Some records return an EMPTY <url/> element — the SDS
+      is indexed but the document is not linked.
+    relationships:
+      - {type: has_one, target: DisclosureDocument, via: url}
+  - name: GeneralConformityCertificate
+    source_operation: "GET /tcc/v1/general_conformity"
+    description: CPSC General Certificate of Conformity looked up by product identifier and lot.
+    fields: []
+    identifier: [upc, lot]
+    note: "Shape unknown — the route requires upc and lot and no public sample pair was available, so no successful body was observed. Fields deliberately left empty rather than guessed."
+  - name: JobRequisition
+    source_operation: "GET /tcc/v1/job-search/job-query"
+    description: An open Clorox job requisition.
+    fields: [Job_Requisition_Reference, Job_Posting_Title, Recruiting_Start_Date, Job_Location, Job_Category, Job_type]
+    identifier: Job_Requisition_Reference
+    note: >-
+      Field naming is Workday-shaped (Title_Case_With_Underscores) and diverges from every other
+      route on this API, which uses WordPress lower_snake_case. Job_Location is an ARRAY — one
+      requisition can span multiple sites.
+    relationships:
+      - {type: has_one, target: JobDetail, via: job_unique_identifier}
+  - name: JobDetail
+    source_operation: "GET /tcc/v1/job-search/job-detail"
+    description: Full detail for one requisition.
+    identifier: job_unique_identifier
+    fields: []
+    note: "Requires job_unique_identifier; not called during this pass, so no field list is recorded."
+  - name: DisclosureDocument
+    description: A PDF hosted under /wp-content/uploads/ and referenced by CleaningLabel.pdf_list or SafetyDataSheet.url.
+    fields: [url]
+    note: "Not an API resource — the terminal artifact both disclosure indexes point at."
+naming_consistency:
+  verdict: inconsistent
+  detail: >-
+    Three naming conventions coexist on one API: WordPress lower_snake_case (cleaning_labels),
+    Workday Title_Case (Job_Posting_Title), and camelCase (countryRegions, job_unique_identifier
+    mixed with dsar/countryRegions). Content types also split — JSON everywhere except
+    /tcc/v1/sds-xml, which is XML.

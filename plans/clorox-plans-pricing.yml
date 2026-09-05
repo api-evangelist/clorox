@@ -1,0 +1,11 @@
+generated: '2026-09-05'
+method: probed
+source: https://www.thecloroxcompany.com/wp-json/ (anonymous access, no commercial surface)
+plan_count: 0
+note: >-
+  There is no API pricing, no plans, no metering and no signup. The first-party endpoints are
+  served anonymously and free as a side effect of the corporate website; they are not a
+  commercial product. The gated api.clorox.com MuleSoft gateway is a partner/supply-chain
+  integration surface with no public commercial terms. Recorded as zero rather than omitted, so
+  the absence is data rather than a gap.
+plans: []
