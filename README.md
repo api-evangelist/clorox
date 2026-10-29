@@ -1,4 +1,4 @@
-# The Clorox Company (clorox)
+# The Clorox Company
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,42 +64,106 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The Clorox Company is a multinational consumer-goods manufacturer best known for its bleach, cleaning, and disinfecting brands, as well as a broader portfolio that includes Pine-Sol, Liquid-Plumr, Glad, Kingsford, Brita, Burts Bees, and Hidden Valley. Clorox does not publish a public developer-facing REST API; integration with the company is handled through partner, supply-chain, and retail-EDI relationships rather than through a documented internet-accessible API.
+The Clorox Company is a multinational consumer-goods manufacturer best known for its bleach, cleaning and disinfecting brands, alongside a portfolio that includes Pine-Sol, Liquid-Plumr, Glad, Kingsford, Brita, Burt's Bees and Hidden Valley. Clorox runs no developer program and publishes no API documentation, OpenAPI, SDK or portal, and its commercial integration with retailers and suppliers runs over EDI and partner agreements rather than a public API. It does nonetheless serve a small, undocumented, anonymous first-party REST surface from its corporate site at /wp-json — Clorox-authored tcc/v1 and clorox-security/v1 namespaces exposing a Safety Data Sheet index, cleaning-product ingredient disclosure records, a CPSC general conformity certificate lookup, a live job feed and consent signalling. A MuleSoft Anypoint gateway at api.clorox.com serves partner traffic behind a 403, and Clorox's Anypoint Exchange public portal is enabled but publishes zero assets.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/clorox/refs/heads/main/apis.yml)
+**Areas:** Cleaning Products · Consumer Goods · Consumer Packaged Goods · Disinfectants · Household Products · Manufacturer · Fortune 500 · Safety Data Sheets · Product Transparency · MuleSoft
 
-## Scope
+## The Clorox Company on APIs.io
 
-- **Type:** Index
-- **Position:** Producer
-- **Access:** 1st-Party
+Everything profiled for The Clorox Company is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/clorox/](https://apis.io/providers/clorox/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (1)
 
-- Cleaning Products, Consumer Goods, CPG, Disinfectants, Household Products, Manufacturer
+- [The Clorox Company Website (WordPress REST)](https://apis.io/apis/clorox/thecloroxcompany-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the The Clorox Company website at www.thecloroxcompany.com: the route index of the site's content management…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-23
-- **Modified:** 2026-04-27
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-No public developer API is documented for The Clorox Company. This profile is maintained as a placeholder for partner, EDI, and corporate touchpoints.
+Model Context Protocol servers that expose the API to agents.
 
-## Common Properties
+- [clorox](https://apis.io/servers/clorox/clorox/)
 
-- [Consumer Website](https://www.clorox.com)
-- [Corporate Site](https://www.thecloroxcompany.com/)
-- [Brands](https://www.thecloroxcompany.com/brands/)
-- [Investor Relations](https://investors.thecloroxcompany.com/)
-- [Careers](https://www.thecloroxcompany.com/careers/)
-- [Newsroom](https://www.thecloroxcompany.com/newsroom/)
-- [Terms of Service](https://www.thecloroxcompany.com/terms-of-use/)
-- [Privacy Policy](https://www.thecloroxcompany.com/privacy-policy/)
+#### Security (2)
 
-## Maintainers
+Authentication, trust centre, and vulnerability disclosure.
 
-**FN:** Kin Lane
+- [Clorox Authentication](https://apis.io/security/clorox/clorox-authentication/)
+- [Clorox Domain Security](https://apis.io/security/clorox/clorox-domain-security/)
 
-**Email:** kin@apievangelist.com
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Clorox Plans Pricing](https://apis.io/plans/clorox/clorox-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Clorox Rate Limits](https://apis.io/rate-limits/clorox/clorox-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.clorox.com)
+- [Support](https://www.thecloroxcompany.com/contact-us/)
+- [Blog](https://www.thecloroxcompany.com/feed/)
+- [Terms of service](https://www.thecloroxcompany.com/terms/)
+- [Privacy policy](https://www.thecloroxcompany.com/privacy/)
+
+## API Evangelist rating
+
+**Kin Score 17.5** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 58.0 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 6.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/clorox/](https://apis.io/providers/clorox/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for The Clorox Company: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/clorox/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
